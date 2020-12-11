@@ -31,9 +31,60 @@ const questions = [
     },
     {
         type: 'input',
-        name: 'test',
-        message: "enter test data",
-    }
+        name: 'projectTitle',
+        message: 'Enter the project title.',
+    },
+    {
+        type: 'input',
+        name: 'description',
+        message: 'Enter a description of the project.',
+    },
+    {
+        type: 'input',
+        name: 'installation',
+        message: 'Provide instructions for installation.',
+    },
+    {
+        type: 'input',
+        name: 'usage',
+        message: 'Describe how the project can be used.',
+    },
+    {
+        type: 'input',
+        name: 'contributing',
+        message: 'Provide guidelines for contributing to the project.',
+    },
+    {
+        type: 'input',
+        name: 'tests',
+        message: 'Provide instructions for testing the project.',
+    },
+    {
+        type: 'list',
+        name: 'licence',
+        message: 'Select the licence that you would like to use for this project.',
+        choices: ['MIT', 'GNU GPL v3', 'CC Attribution-ShareAlike 4.0 International', 'Apache 2.0', 'Mozilla Public License 2.0']
+    },
+    {
+        type: 'input',
+        name: 'githubUser',
+        message: 'Enter your GitHub username.',
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'Enter your email address.',
+        validate: function (email) {
+  
+            valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+
+            if (valid) {
+                return true;
+            }
+            return "Please enter a valid email address.";
+            
+        }
+    },
     
 ];
 
