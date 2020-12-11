@@ -1,4 +1,5 @@
 const inquirer = require('inquirer');
+const fs = require('fs');
 
 // function to test strings for special characters
 function isValid(str){
@@ -28,11 +29,23 @@ const questions = [
         }
 
     },
+    {
+        type: 'input',
+        name: 'test',
+        message: "enter test data",
+    }
     
 ];
 
 // function to write README file
 function writeToFile(fileName, data) {
+    let dataInTemplate = `here is your test data: ${data.test}
+    `
+
+    fs.writeFile(`${fileName}.md`, dataInTemplate, (err) => {
+        if (err) throw err;
+        console.log(`${fileName}.md has been created!`);
+});
 }
 
 // function to initialize program
@@ -42,6 +55,7 @@ function init() {
         .then(answers => {
             // Use user feedback for... whatever!!
             console.log(JSON.stringify(answers, null, '  '));
+            writeToFile(answers.fileName, answers);
         })
         .catch(error => {
             if(error.isTtyError) {
