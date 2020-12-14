@@ -27,7 +27,6 @@ const questions = [
             }
             return `Your file name cannot contain special characters.`;
         }
-
     },
     {
         type: 'input',
@@ -61,8 +60,8 @@ const questions = [
     },
     {
         type: 'list',
-        name: 'licence',
-        message: 'Select the licence that you would like to use for this project.',
+        name: 'license',
+        message: 'Select the license that you would like to use for this project.',
         choices: ['MIT', 'GNU GPL v3', 'CC Attribution-ShareAlike 4.0 International', 'Apache 2.0', 'Mozilla Public License 2.0']
     },
     {
@@ -90,12 +89,61 @@ const questions = [
 
 // function to write README file
 function writeToFile(fileName, data) {
-    let dataInTemplate = `here is your test data: ${data.test}
-    `
+    let licenseBadge = "";
+    switch (data.license) {
+        case "MIT":
+            licenseBadge = '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)';
+            break;
+        case "GNU GPL v3":
+            licenseBadge = '[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)';
+            break;
+        case "CC Attribution-ShareAlike 4.0 International":
+            licenseBadge = '[![License: CC BY-SA 4.0](https://licensebuttons.net/l/by-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-sa/4.0/)';
+            break;
+        case "Apache 2.0":
+            licenseBadge = '[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)';
+            break;
+        case "Mozilla Public License 2.0":
+            licenseBadge = '[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)';
+            break;
+        default:
+            licenseBadge = '';
+    }
+    let dataInTemplate = `# Title: ${data.projectTitle}         ${licenseBadge}
 
-    fs.writeFile(`${fileName}.md`, dataInTemplate, (err) => {
+## Table of Contents:
+* [Description](#Description)
+* [Installation](#Installation)
+* [Usage](#Usage)
+* [Contributing](#Contributing)
+* [Testing](#Testing)
+* [Questions](#Questions)
+* [License](#License)
+    
+### <a name="Description">Description:</a>
+${data.description}
+    
+### <a name="Installation">Installation:  </a>
+${data.installation}
+    
+### <a name="Usage">Usage: </a>
+${data.usage}
+
+### <a name="Contributing">Contributing: </a>
+${data.contributing}
+
+### <a name="Testing">Testing: </a>
+${data.tests}
+
+### <a name="Questions">Questions: </a>
+You can contact ${data.githubUser} at ${data.email} with questions.
+
+### <a name="License">License: </a>
+Distributed under the ${data.license} license.`
+
+    fs.writeFile(`${data.fileName}.md`, dataInTemplate, (err) => {
         if (err) throw err;
-        console.log(`${fileName}.md has been created!`);
+        console.log(`${data.fileName}.md has been created!`);
 });
 }
 
