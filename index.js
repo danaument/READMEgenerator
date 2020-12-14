@@ -153,7 +153,6 @@ function init() {
         .prompt(questions)
         .then(answers => {
             // Use user feedback for... whatever!!
-            console.log(JSON.stringify(answers, null, '  '));
             writeToFile(answers.fileName, answers);
         })
         .catch(error => {
